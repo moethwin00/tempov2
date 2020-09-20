@@ -9,9 +9,31 @@ require('./bootstrap');
 window.Vue = require('vue');
 import moment from 'moment';
 import { Form, HasError, AlertError } from 'vform';
+import VueProgressBar from 'vue-progressbar';
+
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2';
+
+window.Swal = Swal;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+
+window.Toast = Toast;
+
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
+
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '2px'
+});
 
 window.Form = Form;
 Vue.component(HasError.name, HasError)
@@ -30,6 +52,8 @@ Vue.filter('upText', function(text) {
 Vue.filter('myDate', function(created) {
     return moment(created).format('MMMM Do YYYY')
 });
+
+window.Fire = new Vue();
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
